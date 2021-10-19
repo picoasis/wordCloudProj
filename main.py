@@ -103,19 +103,22 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import jieba 
 from lxml import etree
+import pdb
 
 #获取歌曲
 #得到指定歌手页面 热门钱50 的歌曲ID，歌曲名
 def get_songs(artist_id):
     page_url ='https://music.163.com/artist?id='+artist_id
     #获取网页HTML
-    res = requests.request('GET', page_url, headers=headers)
+    res = requests.request('GET', page_url, headers=headers,stream=True, verify=False)
     #用XPATH机械 前50首热门歌曲
+    pdb.set_trace()
     html = etree.HTML(res.text)
     href_xpath = "//*[@id='hotsong-list']//a/@href"
     name_xpath = "//*[@id='hotsong-list']//a/text()"
     hrefs = html.xpath(href_xpath)
     names = html.xpath(name_xpath)
+    pdb.set_trace()
     #设置热门歌曲的ID，歌曲名称
     song_ids=[]
     song_names = []
@@ -133,6 +136,7 @@ def get_song_lyric(headers,lyric_url):
     if 'lrc' in res.json():
         lyric = res.json()['lrc']['lyric']
         new_lyric1 = re.sub(r'[\d:.[\]]','',lyric)#去除时间
+        pdb.set_trace()
         #print('new_lyric______:',new_lyric1)        
         '''
          去除这些东西
