@@ -60,4 +60,5 @@ song_list_url = 'https://music.163.com/playlist?id=' + song_list_id
 all_songs_name = ''
 for name in songs_name:
     all_songs_name += name
-createWordcloud(all_songs_name)
+if __name__ == '__main__':
+    createWordcloud(all_songs_name)
